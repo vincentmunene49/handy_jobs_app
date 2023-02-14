@@ -51,10 +51,13 @@ dependencies {
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.firebase:firebase-auth-ktx:21.1.0'
+    implementation 'com.google.firebase:firebase-storage-ktx:20.1.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     kapt "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.5.0"
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.3'
+
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.13.0'
@@ -62,7 +65,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     //Dagger hilt
     implementation "com.google.dagger:hilt-android:2.38.1"
-    kapt "com.google.dagger:hilt-compiler:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.38.1"
 
     //loading button
     implementation 'br.com.simplepass:loading-button-android:2.2.0'

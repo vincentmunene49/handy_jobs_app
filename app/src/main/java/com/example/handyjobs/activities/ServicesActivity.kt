@@ -9,7 +9,9 @@ import androidx.navigation.NavHost
 import androidx.navigation.ui.setupWithNavController
 import com.example.handyjobs.R
 import com.example.handyjobs.databinding.ActivityServicesBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ServicesActivity:AppCompatActivity() {
     private lateinit var binding:ActivityServicesBinding
 private lateinit var navController: NavController
