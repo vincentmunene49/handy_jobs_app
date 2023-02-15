@@ -2,21 +2,21 @@ package com.example.handyjobs.util
 
 import android.util.Patterns
 
-fun validateEmail(email:String):RegisterValidation{
+fun validateEmail(email:String):AccountOptionsValidation{
     if(email.isEmpty())
-        return RegisterValidation.Failed("Email cannot be empty")
+        return AccountOptionsValidation.Failed("Email cannot be empty")
 
     if(!Patterns.EMAIL_ADDRESS.matcher(email).matches())
-        return RegisterValidation.Failed("Wrong email Format")
+        return AccountOptionsValidation.Failed("Wrong email Format")
 
-    return RegisterValidation.Success
+    return AccountOptionsValidation.Success
 }
-fun validatePassword(password:String):RegisterValidation{
+fun validatePassword(password:String):AccountOptionsValidation{
     if(password.isEmpty())
-        return RegisterValidation.Failed("Password field cannot be empty")
+        return AccountOptionsValidation.Failed("Password field cannot be empty")
 
     if(password.length < 6)
-        return RegisterValidation.Failed("Password should be more than 6 characters")
+        return AccountOptionsValidation.Failed("Password should be more than 6 characters")
 
-    return RegisterValidation.Success
+    return AccountOptionsValidation.Success
 }

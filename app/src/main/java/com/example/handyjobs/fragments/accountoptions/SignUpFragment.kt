@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.handyjobs.R
 import com.example.handyjobs.data.User
 import com.example.handyjobs.databinding.FragmentSignUpBinding
-import com.example.handyjobs.util.RegisterValidation
+import com.example.handyjobs.util.AccountOptionsValidation
 import com.example.handyjobs.util.ResultStates
 import com.example.handyjobs.viewmodel.RegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,7 +59,6 @@ class SignUpFragment:Fragment(R.layout.fragment_sign_up) {
                         binding.registerButton.startAnimation()
                     }
                     is ResultStates.Success ->{
-                        Log.d("TAG",it.data.toString())
                         binding.registerButton.revertAnimation()
                         findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
                     }
@@ -75,7 +74,7 @@ class SignUpFragment:Fragment(R.layout.fragment_sign_up) {
 //validate
         lifecycleScope.launchWhenStarted {
             viewModel.validation.collect{
-                if(it.email is RegisterValidation.Failed){
+                if(it.email is AccountOptionsValidation.Failed){
                     withContext(Dispatchers.Main){
                         binding.email.apply {
                             requestFocus()
@@ -84,7 +83,7 @@ class SignUpFragment:Fragment(R.layout.fragment_sign_up) {
                     }
                 }
 
-                if(it.password is RegisterValidation.Failed){
+                if(it.password is AccountOptionsValidation.Failed){
                     withContext(Dispatchers.Main){
                         binding.password.apply {
                             requestFocus()

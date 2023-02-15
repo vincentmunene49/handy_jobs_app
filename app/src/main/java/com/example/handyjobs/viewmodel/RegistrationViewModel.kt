@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.handyjobs.data.User
 import com.example.handyjobs.util.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
@@ -13,8 +12,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import java.security.PrivateKey
-import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
@@ -78,7 +75,7 @@ class RegistrationViewModel @Inject constructor(
         val emailValidation = validateEmail(user.email)
         val passwordValidation = validatePassword(password)
 
-        return emailValidation is RegisterValidation.Success && passwordValidation is RegisterValidation.Success
+        return emailValidation is AccountOptionsValidation.Success && passwordValidation is AccountOptionsValidation.Success
 
     }
 
