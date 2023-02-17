@@ -47,6 +47,7 @@ class SignUpFragment:Fragment(R.layout.fragment_sign_up) {
                 )
                 val password = password.text.toString()
                 viewModel.createAccount(user, password)
+                findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
             }
         }
 
@@ -60,7 +61,6 @@ class SignUpFragment:Fragment(R.layout.fragment_sign_up) {
                     }
                     is ResultStates.Success ->{
                         binding.registerButton.revertAnimation()
-                        findNavController().navigate(R.id.action_signUpFragment_to_loginFragment)
                     }
                     is ResultStates.Failure ->{
                         Log.d("TAG",it.message.toString())
