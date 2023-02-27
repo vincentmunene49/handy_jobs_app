@@ -1,5 +1,6 @@
 package com.example.handyjobs.fragments.accountoptions
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,7 +18,9 @@ import com.example.handyjobs.util.AccountOptionsValidation
 import com.example.handyjobs.util.ResultStates
 import com.example.handyjobs.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
@@ -47,6 +50,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
         }
 
+
         lifecycleScope.launchWhenStarted {
             viewModel.login.collect {
                 when (it) {
@@ -71,9 +75,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
         }
         lifecycleScope.launchWhenStarted {
-            viewModel.validation.collect{
-                if(it.email is AccountOptionsValidation.Failed){
-                    withContext(Dispatchers.Main){
+            viewModel.validation.collect {
+                if (it.email is AccountOptionsValidation.Failed) {
+                    withContext(Dispatchers.Main) {
                         binding.email.apply {
                             requestFocus()
                             error = it.email.message
@@ -81,8 +85,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     }
                 }
 
-                if(it.password is AccountOptionsValidation.Failed){
-                    withContext(Dispatchers.Main){
+                if (it.password is AccountOptionsValidation.Failed) {
+                    withContext(Dispatchers.Main) {
                         binding.password.apply {
                             requestFocus()
                             error = it.password.message
@@ -93,6 +97,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
     }
+
 
     override fun onDestroy() {
         super.onDestroy()

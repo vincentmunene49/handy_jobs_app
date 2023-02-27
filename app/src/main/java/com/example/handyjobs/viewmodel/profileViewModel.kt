@@ -66,9 +66,7 @@ class profileViewModel @Inject constructor(
     fun uploadProfilePic(imageUri: Uri) {
             val userRef = firebaseFirestore.collection(USER_COLLECTION).document(auth.uid!!)
             userRef.get().addOnSuccessListener {
-                val user = it.toObject(User::class.java)
                 try {
-                    if (user?.image.isNullOrEmpty()) {
                         val bitmap = MediaStore.Images.Media.getBitmap(
                             getApplication<HandyJobsApplication>().contentResolver, imageUri
                         )
@@ -87,7 +85,7 @@ class profileViewModel @Inject constructor(
                             }//for update success
 
                         }
-                    }
+
                 }catch (_:java.lang.Exception){
 
                 }
@@ -99,6 +97,9 @@ class profileViewModel @Inject constructor(
                 }//for retrieving user success
 
 
+    }
+    fun logout(){
+        auth.signOut()
     }
 
    

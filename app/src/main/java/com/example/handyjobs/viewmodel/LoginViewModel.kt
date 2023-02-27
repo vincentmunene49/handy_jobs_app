@@ -1,5 +1,6 @@
 package com.example.handyjobs.viewmodel
 
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.handyjobs.data.User
@@ -14,13 +15,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val firebaseAuth: FirebaseAuth
+    private val firebaseAuth: FirebaseAuth,
+    private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
     //create a channel for emitting values
     private val _validation = Channel<RegisterFieldState>()//does not require initial value
     val validation = _validation.receiveAsFlow()
     private var _login = MutableSharedFlow<ResultStates<FirebaseUser>>()
     val login: SharedFlow<ResultStates<FirebaseUser>> = _login
+    private var _loggedIn = MutableStateFlow<ResultStates<FirebaseUser>>(ResultStates.Unit())
+    val loggedIn = _loggedIn.asStateFlow()
 
     fun signInUser(email: String, password: String) {
         if (validate(email, password)) {
@@ -60,6 +64,15 @@ class LoginViewModel @Inject constructor(
         val passwordValidation = validatePassword(password)
 
         return emailValidation is AccountOptionsValidation.Success && passwordValidation is AccountOptionsValidation.Success
+
+    }
+
+    fun checkIfUserIsLoggedIn():Boolean {
+        _loggedIn.value = ResultStates.Loading()
+        if(firebaseAuth.currentUser != null){
+            return true
+        }
+        return false
 
     }
 }

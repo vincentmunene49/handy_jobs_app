@@ -2,6 +2,7 @@ package com.example.handyjobs.di
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -25,6 +26,10 @@ object Modules {
 
     fun provideFireBaseFirestoreDb() = Firebase.firestore
 
-
+    @Provides
+    @Singleton
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
+        return context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
+    }
 
 }

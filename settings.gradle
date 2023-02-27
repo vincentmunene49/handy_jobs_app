@@ -17,3 +17,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Handy Jobs"
 include ':app'
+include ':app'

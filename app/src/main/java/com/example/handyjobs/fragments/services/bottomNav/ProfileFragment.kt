@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.handyjobs.R
+import com.example.handyjobs.activities.AccountOptions
 import com.example.handyjobs.data.User
 import com.example.handyjobs.databinding.FragmentProfileBinding
 import com.example.handyjobs.util.ResultStates
@@ -57,6 +58,14 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
         //setUserInformation
         setUserInfo()
+//sign out
+        binding.tvSignOut.setOnClickListener {
+            viewModel.logout()
+            Intent(requireActivity(), AccountOptions::class.java).also {
+                startActivity(it)
+            }
+            requireActivity().finish()
+        }
 
 
     }
@@ -76,7 +85,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                         showViews()
                     }
                     is ResultStates.Failure -> {
-                        Log.d("Profile",it.message.toString())
+                        Log.d("Profile", it.message.toString())
                         showViews()
                     }
                     else -> Unit
