@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Professional</string>
+    <string name="login_textview">Login</string>
+    <string name="hint_email">email</string>
+    <string name="hint_password">password</string>
+    <string name="login_button_text">Login</string>
+    <string name="or">Or</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="fullname">name</string>
+    <string name="sign_up_button_text">Sign Up</string>
+    <string name="need_to_login">Already have an Account?</string>
+    <string name="to_login">Login</string>
+    
+    <string-array name="categories">
+        <item>Plumbing</item>
+        <item>Carpentry</item>
+        <item>Electrical</item>
+        <item>Tailoring and Sewing</item>
+        <item>Painting and Decorating</item>
+        <item>Landscaping and Gardening</item>
+        <item>Cleaning and Housekeeping</item>
+    </string-array>
+
+</resources>
