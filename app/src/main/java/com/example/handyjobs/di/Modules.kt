@@ -26,10 +26,6 @@ object Modules {
 
     fun provideFireBaseFirestoreDb() = Firebase.firestore
 
-    @Provides
-    @Singleton
-    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        return context.getSharedPreferences("MyPreferences", Context.MODE_PRIVATE)
-    }
+
 
 }
