@@ -16,7 +16,6 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-    private val sharedPreferences: SharedPreferences
 ) : ViewModel() {
     //create a channel for emitting values
     private val _validation = Channel<RegisterFieldState>()//does not require initial value
