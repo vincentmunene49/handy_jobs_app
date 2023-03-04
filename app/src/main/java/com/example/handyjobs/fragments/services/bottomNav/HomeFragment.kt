@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.handyjobs.R
 import com.example.handyjobs.adapter.PopularCategoriesAdapter
@@ -42,6 +43,13 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //navigate to searchview
+        binding.searchView.setOnClickListener{
+            findNavController().navigate(R.id.action_homeFragment_to_searchFragment)
+        }
+
+        //set up recylerview
         setUpRecylerView()
         //set up map
         mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment

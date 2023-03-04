@@ -2,6 +2,7 @@ package com.example.handyjobs.activities
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
@@ -26,6 +27,15 @@ private lateinit var navController: NavController
 
         //setUp bottomnav
         binding.bottomNavView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener{_,destination,_ ->
+            if(destination.id ==R.id.searchFragment){
+                binding.bottomNavView.visibility = View.GONE
+            }else{
+                binding.bottomNavView.visibility = View.VISIBLE
+            }
+        }
+
 
     }
 }
