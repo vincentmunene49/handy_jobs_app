@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.handyjobs.R
+import com.example.handyjobs.data.Title
 import com.example.handyjobs.databinding.FragmentSearchBinding
 import com.example.handyjobs.viewmodel.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +27,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private val viewModel by viewModels<HomeViewModel>()
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var categoriesList: MutableList<String>
+    private lateinit var text:String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,7 +68,17 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 //getselected item in listview
 
         binding.lvSearch.setOnItemClickListener { parent, view, position, id ->
-            findNavController().navigate(R.id.action_searchFragment_to_bottomSheetView)
+            val item = parent.getItemAtPosition(position)
+            if(item is TextView){
+                text = item.text.toString()
+            }
+
+            val bundle = Bundle().apply {
+                val title = Title(text)
+                putParcelable("title",title)
+            }
+            findNavController().navigate(R.id.action_searchFragment_to_bottomSheetView,bundle)
+
 
 
         }

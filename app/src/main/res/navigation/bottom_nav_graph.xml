@@ -41,5 +41,9 @@
         android:id="@+id/bottomSheetView"
         android:name="com.example.handyjobs.fragments.services.BottomSheetView"
         android:label="modal_bottom_sheet"
-        tools:layout="@layout/modal_bottom_sheet" />
+        tools:layout="@layout/modal_bottom_sheet" >
+        <argument
+            android:name="title"
+            app:argType="com.example.handyjobs.data.Title" />
+    </dialog>
 </navigation>
