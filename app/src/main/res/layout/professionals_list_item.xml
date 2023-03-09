@@ -9,7 +9,6 @@
         android:layout_width="0dp"
         android:layout_marginStart="10dp"
         android:layout_height="0dp"
-        android:layout_marginTop="50dp"
         android:scaleType="centerCrop"
         android:src="@drawable/profile_icon"
         app:civ_border_color="#00000000"
@@ -18,11 +17,11 @@
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent=".25" />
+        app:layout_constraintWidth_percent=".15" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="0dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"

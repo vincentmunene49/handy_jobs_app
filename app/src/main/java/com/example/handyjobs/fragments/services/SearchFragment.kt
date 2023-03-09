@@ -36,6 +36,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     ): View {
         _binding = FragmentSearchBinding.inflate(layoutInflater)
         categoriesList = mutableListOf()
+        text = "vincent"
         return binding.root
     }
 
@@ -68,10 +69,10 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 //getselected item in listview
 
         binding.lvSearch.setOnItemClickListener { parent, view, position, id ->
-            val item = parent.getItemAtPosition(position)
-            if(item is TextView){
-                text = item.text.toString()
-            }
+            val item = parent.getItemAtPosition(position).toString()
+
+                text = item
+
 
             val bundle = Bundle().apply {
                 val title = Title(text)

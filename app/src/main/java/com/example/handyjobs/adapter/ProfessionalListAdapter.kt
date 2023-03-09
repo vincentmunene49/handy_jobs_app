@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.handyjobs.R
 import com.example.handyjobs.data.ProfessionCategory
 import com.example.handyjobs.databinding.ProfessionalsListItemBinding
 
@@ -16,9 +17,9 @@ class ProfessionalListAdapter :
         RecyclerView.ViewHolder(binding.root) {
             fun bind(professional:ProfessionCategory){
                 binding.tvName.text = professional.name
-                binding.tvExperience.text = professional.experience
+                binding.tvExperience.text = "${professional.experience} Years"
                 professional.image.let {
-                    Glide.with(itemView).load(it).into(binding.profileImage)
+                    Glide.with(itemView).load(it).placeholder(R.drawable.profile_icon).into(binding.profileImage)
                 }
             }
         }
