@@ -45,5 +45,24 @@
         <argument
             android:name="title"
             app:argType="com.example.handyjobs.data.Title" />
+        <action
+            android:id="@+id/action_bottomSheetView_to_professionalProfileFragment"
+            app:destination="@id/professionalProfileFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </dialog>
+    <fragment
+        android:id="@+id/professionalProfileFragment"
+        android:name="com.example.handyjobs.fragments.services.ProfessionalProfileFragment"
+        android:label="fragment_prof_profile"
+        tools:layout="@layout/fragment_prof_profile" >
+        <argument
+            android:name="professional_details"
+            app:argType="com.example.handyjobs.data.ProfessionCategory" />
+        <action
+            android:id="@+id/action_professionalProfileFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
 </navigation>

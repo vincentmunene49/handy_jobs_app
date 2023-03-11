@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavArgs
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
@@ -71,6 +72,13 @@ class BottomSheetView : BottomSheetDialogFragment(R.layout.modal_bottom_sheet) {
                     else -> Unit
                 }
             }
+        }
+        //each item clicked
+        professionalListAdapter.onItemClicked = { prof ->
+            val bundle = Bundle().apply {
+                putParcelable("professional_details", prof)
+            }
+            findNavController().navigate(R.id.action_bottomSheetView_to_professionalProfileFragment,bundle)
         }
 
     }

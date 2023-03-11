@@ -50,9 +50,15 @@ class ProfessionalListAdapter :
     override fun onBindViewHolder(holder: ProfessionalListViewHolder, position: Int) {
         val currentProfessional = differ.currentList[position]
         holder.bind(currentProfessional)
+        holder.itemView.setOnClickListener {
+            onItemClicked?.invoke(currentProfessional)
+        }
     }
 
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
+
+    var onItemClicked: ((ProfessionCategory) -> Unit)? = null
+
 }
