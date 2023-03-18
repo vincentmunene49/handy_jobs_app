@@ -48,7 +48,7 @@ class AddProfessionViewModel @Inject constructor(
         ) {
             _upload.value = Results.Loading()
 
-            firebaseFirestore.collection(CATEGORY_COLLECTION).document(UUID.randomUUID().toString())
+            firebaseFirestore.collection(CATEGORY_COLLECTION).document(firebaseAuth.currentUser!!.uid)
                 .set(professionUpload)
                 .addOnSuccessListener {
                     _upload.value = Results.Success(professionUpload)
@@ -87,9 +87,9 @@ class AddProfessionViewModel @Inject constructor(
         return categories is Validation.Success && skillDesc is Validation.Success && yearsExperience is Validation.Success && workDesc is Validation.Success
     }
 
-    //emit Id
-     fun getUserId(): String {
-        return firebaseAuth.currentUser!!.uid
-    }
+//    //emit Id
+//     fun getUserId(): String {
+//        return firebaseAuth.currentUser!!.uid
+//    }
 
 }

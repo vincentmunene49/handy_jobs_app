@@ -9,3 +9,11 @@ sealed class Results<T>(
     class Failure<T>(message: String?):Results<T>(message=message)
     class Loading<T>():Results<T>()
 }
+
+enum class Status{
+    Available,
+    Unavailable,
+    Losing,
+    Lost,
+    Unit
+}

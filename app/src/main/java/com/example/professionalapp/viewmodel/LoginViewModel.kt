@@ -2,11 +2,15 @@ package com.example.professionalapp.viewmodel
 
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.professionalapp.util.*
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
@@ -15,8 +19,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val firebaseAuth: FirebaseAuth
+    private val firebaseAuth: FirebaseAuth,
+    private val firestore: FirebaseFirestore
 ) : ViewModel() {
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
     //create a channel for emitting values
     private val _validation = Channel<RegisterFieldState>()//does not require initial value
     val validation = _validation.receiveAsFlow()
@@ -66,12 +73,30 @@ class LoginViewModel @Inject constructor(
 
     }
 
-    fun checkIfUserIsLoggedIn():Boolean {
+    fun checkIfUserIsLoggedIn(): Boolean {
         _loggedIn.value = Results.Loading()
-        if(firebaseAuth.currentUser != null){
+        if (firebaseAuth.currentUser != null) {
             return true
         }
         return false
+
+    }
+
+    fun updateLocation(geoPoint: GeoPoint?) {
+        val docRef = firestore.collection(PROFESSIONAL_COLLECTION).document(firebaseAuth.uid!!)
+        geoPoint.let { geoPoints->
+            docRef.update("location", geoPoints,
+                "online",true).addOnSuccessListener {
+                Log.d("LOCUPDATE", "Success ${geoPoints!!.latitude}")
+
+
+            }.addOnFailureListener {
+                Log.d("LOCUPDATE", it.message.toString())
+
+
+            }
+        }
+
 
     }
 }

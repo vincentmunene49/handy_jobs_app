@@ -51,7 +51,6 @@ class AddProfessionFragment : Fragment(R.layout.fragment_add_profession) {
         }
         binding.postSkills.setOnClickListener {
             val professionUpload = ProfessionUpload(
-                viewModel.getUserId(),
                 selectedItem,
                 binding.skill.text.toString().trim(),
                 binding.experience.text.toString().trim(),

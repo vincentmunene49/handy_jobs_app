@@ -16,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.professionalapp"
-        minSdk 21
+        minSdk 24
         targetSdk 33
         versionCode 1
         versionName "1.0"
@@ -85,9 +85,14 @@ dependencies {
 
     //circular image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    //easy permissions
+    implementation 'pub.devrel:easypermissions:3.0.0'
+
 
     //maps
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation "com.google.android.gms:play-services-location:21.0.1"
+
 
 
 
