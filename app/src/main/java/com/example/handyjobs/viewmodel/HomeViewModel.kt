@@ -19,7 +19,8 @@ class HomeViewModel @Inject constructor(
         MutableStateFlow<MutableList<String>>(mutableListOf())
     val retrieveData = _retrievedData.asStateFlow()
 
-    private var _retrievedState = MutableStateFlow<ResultStates<MutableList<String>>>(ResultStates.Unit())
+    private var _retrievedState =
+        MutableStateFlow<ResultStates<MutableList<String>>>(ResultStates.Unit())
     val retrievedState = _retrievedState.asStateFlow()
 
     init {
@@ -34,7 +35,10 @@ class HomeViewModel @Inject constructor(
                 val category_name: MutableList<String> = mutableListOf()
 
                 for (document in it.documents) {
-                    category_name.add(document.data?.getValue("category").toString())
+                    if (!(category_name.contains(document.data?.getValue("category").toString()))) {
+                        category_name.add(document.data?.getValue("category").toString())
+
+                    }
 //                    Log.d("QUERY","${document.data?.getValue("category")}")
                 }
                 _retrievedData.value = category_name

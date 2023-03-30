@@ -27,7 +27,15 @@
         android:id="@+id/profileFragment"
         android:name="com.example.handyjobs.fragments.services.bottomNav.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.handyjobs.fragments.services.SearchFragment"
@@ -65,4 +73,9 @@
             android:id="@+id/action_professionalProfileFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.handyjobs.fragments.services.bottomNav.profilefragments.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
 </navigation>

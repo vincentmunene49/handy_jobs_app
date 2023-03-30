@@ -29,7 +29,7 @@ import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
-class profileViewModel @Inject constructor(
+class  profileViewModel @Inject constructor(
     private val firebaseFirestore: FirebaseFirestore,
     private val auth: FirebaseAuth,
     app: Application

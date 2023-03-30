@@ -4,6 +4,7 @@ import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import com.example.handyjobs.R
 import com.example.handyjobs.adapter.ProfessionalListAdapter
 import com.example.handyjobs.databinding.ModalBottomSheetBinding
 import com.example.handyjobs.util.ResultStates
+import com.example.handyjobs.util.getLocation
 import com.example.handyjobs.viewmodel.RetrieveProfessionalViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -50,8 +52,15 @@ class BottomSheetView : BottomSheetDialogFragment(R.layout.modal_bottom_sheet) {
         viewModel.getDocumentIds(title.title)
 
         lifecycleScope.launchWhenStarted {
-            viewModel.professionals.collect {
-                professionalListAdapter.differ.submitList(it)
+            val location = getLocation.getLocation(requireActivity())
+
+            if (location != null) {
+                viewModel.professionals.collect { collection ->
+                    val filteredList = viewModel.getProfessionalsWithinMaxDistance(collection,location,5.0)
+                    professionalListAdapter.differ.submitList(filteredList)
+                }
+            }else{
+                Log.d("EMPTY","$location")
             }
         }
 
@@ -78,7 +87,10 @@ class BottomSheetView : BottomSheetDialogFragment(R.layout.modal_bottom_sheet) {
             val bundle = Bundle().apply {
                 putParcelable("professional_details", prof)
             }
-            findNavController().navigate(R.id.action_bottomSheetView_to_professionalProfileFragment,bundle)
+            findNavController().navigate(
+                R.id.action_bottomSheetView_to_professionalProfileFragment,
+                bundle
+            )
         }
 
     }

@@ -10,5 +10,9 @@
     <string name="sign_up_button_text">Sign Up</string>
     <string name="need_to_login">Already have an Account?</string>
     <string name="to_login">Login</string>
+    <string name="about">Welcome to our app! With our app, you can easily search for professionals in your area who can help with a variety of tasks. Whether you need a plumber, electrician, or handyman, our app connects you with professionals who are available and ready to help.You can read reviews from other customers to help you make an informed decision.
 
+Our app is designed to make your life easier and more convenient, giving you the peace of mind that comes with knowing you can easily find the help you need. So why wait? Download our app today and start connecting with professionals in your area!
+    </string>
+<string name="about_header">About</string>
 </resources>

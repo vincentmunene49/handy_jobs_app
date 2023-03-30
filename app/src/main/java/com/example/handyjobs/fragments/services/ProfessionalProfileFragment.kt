@@ -40,7 +40,7 @@ class ProfessionalProfileFragment : Fragment(R.layout.fragment_prof_profile) {
         binding.tvName.text = profArgs.professionalDetails.name
         binding.tvProfession.text = "${profArgs.professionalDetails.experience} +years"
         binding.tvSkillDescription.text = profArgs.professionalDetails.description
-       Glide.with(binding.root).load(profArgs.professionalDetails.image).into(binding.profileImage)
+       Glide.with(binding.root).load(profArgs.professionalDetails.image).placeholder(R.drawable.profile_icon).into(binding.profileImage)
 
     }
 

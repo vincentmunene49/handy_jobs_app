@@ -11,6 +11,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.handyjobs.R
 import com.example.handyjobs.activities.AccountOptions
@@ -58,6 +59,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
         //setUserInformation
         setUserInfo()
+
+        //move to about
+
+        binding.about.setOnClickListener{
+            findNavController().navigate(R.id.action_profileFragment_to_aboutFragment)
+        }
 //sign out
         binding.tvSignOut.setOnClickListener {
             viewModel.logout()
@@ -100,7 +107,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun hideViews() {
         binding.apply {
             tvName.visibility = View.INVISIBLE
-            tvProfession.visibility = View.INVISIBLE
             progressBar.visibility = View.VISIBLE
         }
     }
@@ -108,7 +114,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     private fun showViews() {
         binding.apply {
             tvName.visibility = View.VISIBLE
-            tvProfession.visibility = View.VISIBLE
             progressBar.visibility = View.GONE
 
         }

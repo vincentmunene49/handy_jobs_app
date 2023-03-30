@@ -11,24 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.33" />
 
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="50dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/profile_icon"
-        app:civ_border_color="#00000000"
-        app:civ_border_width="2dp"
-        app:civ_circle_background_color="#FBFBFB"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent=".25" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -42,124 +26,70 @@
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        android:ellipsize="end"
         android:fontFamily="@font/poppinsblack"
+        android:lines="2"
         android:maxLines="1"
         android:padding="5dp"
         android:text="Vincent Munene"
         android:textAlignment="center"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@id/center_vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_profession"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppinsbold"
-        android:maxLines="1"
-        android:text="Plumber"
-        android:textAlignment="center"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="@+id/tv_name"
-        app:layout_constraintStart_toStartOf="@id/tv_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
-
-    <LinearLayout
-        android:id="@+id/rating_layout"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/profile_icon"
+        app:civ_border_color="#00000000"
+        app:civ_border_width="2dp"
+        app:civ_circle_background_color="#FBFBFB"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".25" />
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dp"
+    android:background="@drawable/profile_details_background"
+    app:layout_constraintTop_toBottomOf="@+id/tv_name"
+    app:layout_constraintStart_toStartOf="@+id/tv_name">
+    <RatingBar
+        style="@android:attr/ratingBarStyleSmall"
+        android:id="@+id/rating"
+        android:scaleX=".7"
+        android:scaleY=".7"
+        android:secondaryProgressTint="@color/custom_black"
+        android:progressTint="@color/custom_black"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/tv_name"
-        app:layout_constraintStart_toStartOf="@+id/tv_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_profession">
-
-        <RatingBar
-            android:id="@+id/ratingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:rating="5"
-            android:stepSize="0.5"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:fontFamily="@font/poppinsbold"
-            android:text="5.0"
-            android:textSize="11sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/profile_details"
-        android:layout_width="match_parent"
+        android:numStars="1"
+        android:stepSize="1"/>
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/profile_details_background"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/mid_guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rating_layout">
+        android:layout_gravity="center_vertical"
+        android:fontFamily="@font/poppinsbold"
+        android:text="5.0"
+        android:layout_marginEnd="5dp"
+        android:textSize="15sp" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_weight="2"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/experience_years"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppinsblack"
-                android:text="10 Year"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppinsbold"
-                android:text="Experience"
-                android:textSize="11sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/review_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppinsblack"
-                android:text="2K"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppinsbold"
-                android:text="Reviews"
-                android:textSize="11sp" />
-        </LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
 
 
-    </LinearLayout>
 
     <View
         android:id="@+id/seperator"
@@ -167,18 +97,19 @@
         android:layout_height="2dp"
         android:layout_marginTop="10dp"
         android:background="#fbfbfb"
-        app:layout_constraintEnd_toEndOf="@+id/profile_details"
-        app:layout_constraintStart_toStartOf="@+id/profile_details"
+        app:layout_constraintEnd_toEndOf="@+id/mid_guideline"
+        app:layout_constraintStart_toStartOf="@+id/mid_guideline"
         app:layout_constraintTop_toBottomOf="@id/mid_guideline" />
 
     <ImageView
         android:id="@+id/notification_icon"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:src="@drawable/notifications"
         app:layout_constraintDimensionRatio="1"
-        app:layout_constraintStart_toStartOf="@id/profile_details"
+        app:layout_constraintStart_toStartOf="@id/seperator"
         app:layout_constraintTop_toBottomOf="@+id/seperator"
         app:layout_constraintWidth_percent=".05" />
 
@@ -189,6 +120,7 @@
         android:fontFamily="@font/poppins_thin"
         android:gravity="center_vertical"
         android:text="Notifications"
+        android:id="@+id/notifications"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/notification_icon"
         app:layout_constraintTop_toTopOf="@+id/notification_icon" />
@@ -200,7 +132,7 @@
         android:layout_marginTop="20dp"
         android:src="@drawable/settings"
         app:layout_constraintDimensionRatio="1"
-        app:layout_constraintStart_toStartOf="@id/profile_details"
+        app:layout_constraintStart_toStartOf="@id/notification_icon"
         app:layout_constraintTop_toBottomOf="@+id/notification_icon"
         app:layout_constraintWidth_percent=".05" />
 
@@ -211,6 +143,7 @@
         android:fontFamily="@font/poppins_thin"
         android:gravity="center_vertical"
         android:text="Settings"
+        android:id="@+id/settings"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/setting_icon"
         app:layout_constraintTop_toTopOf="@+id/setting_icon" />
@@ -222,7 +155,7 @@
         android:layout_marginTop="20dp"
         android:src="@drawable/information"
         app:layout_constraintDimensionRatio="1"
-        app:layout_constraintStart_toStartOf="@id/profile_details"
+        app:layout_constraintStart_toStartOf="@id/notification_icon"
         app:layout_constraintTop_toBottomOf="@+id/setting_icon"
         app:layout_constraintWidth_percent=".05" />
 
@@ -233,6 +166,7 @@
         android:fontFamily="@font/poppins_thin"
         android:gravity="center_vertical"
         android:text="About"
+        android:id="@+id/about"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/about_icon"
         app:layout_constraintTop_toTopOf="@+id/about_icon" />
@@ -243,22 +177,28 @@
         android:layout_height="2dp"
         android:layout_marginTop="20dp"
         android:background="#fbfbfb"
-        app:layout_constraintEnd_toEndOf="@+id/profile_details"
-        app:layout_constraintStart_toStartOf="@+id/profile_details"
+        app:layout_constraintEnd_toEndOf="@+id/seperator"
+        app:layout_constraintStart_toStartOf="@+id/seperator"
         app:layout_constraintTop_toBottomOf="@id/about_icon" />
 
     <TextView
+        android:id="@+id/tv_sign_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv_sign_out"
-        android:text="Sign Out"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/seperator2"
         android:fontFamily="@font/poppinsbold"
-        android:textSize="14sp"
         android:padding="10dp"
+        android:text="Sign Out"
         android:textColor="#E34458"
-        />
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/seperator2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
