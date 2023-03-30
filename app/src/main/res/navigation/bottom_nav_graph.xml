@@ -6,10 +6,14 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/chatFragment"
-        android:name="com.example.handyjobs.fragments.services.bottomNav.ChatFragment"
+        android:id="@+id/chatLogFragment"
+        android:name="com.example.handyjobs.fragments.services.bottomNav.ChatsLogFragment"
         android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" />
+        tools:layout="@layout/fragment_chat_log" >
+        <action
+            android:id="@+id/action_chatLogFragment_to_chatsFragment"
+            app:destination="@id/chatsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.handyjobs.fragments.services.bottomNav.HomeFragment"
@@ -71,11 +75,16 @@
             app:argType="com.example.handyjobs.data.ProfessionCategory" />
         <action
             android:id="@+id/action_professionalProfileFragment_to_chatFragment"
-            app:destination="@id/chatFragment" />
+            app:destination="@id/chatLogFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.handyjobs.fragments.services.bottomNav.profilefragments.AboutFragment"
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="com.example.handyjobs.fragments.services.bottomNav.ChatsFragment"
+        android:label="fragment_chats"
+        tools:layout="@layout/fragment_chats" />
 </navigation>
