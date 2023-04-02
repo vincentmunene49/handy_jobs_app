@@ -4,15 +4,44 @@
     android:layout_width="match_parent"
     tools:context=".fragments.services.bottomNav.ChatsFragment"
     android:layout_height="match_parent"
+    android:background="@drawable/chat_background"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_chats"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ed_textInput"
         />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ed_textInput"
+        android:layout_width="0dp"
+        android:hint="Message"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ed_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:layout_marginEnd="10dp"
+        android:id="@+id/send"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="1"
+        app:layout_constraintWidth_percent=".08"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ed_textInput"
+        app:layout_constraintBottom_toBottomOf="@+id/ed_textInput"
+        android:src="@drawable/send_button"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

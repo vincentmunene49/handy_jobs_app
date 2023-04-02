@@ -74,8 +74,11 @@
             android:name="professional_details"
             app:argType="com.example.handyjobs.data.ProfessionCategory" />
         <action
-            android:id="@+id/action_professionalProfileFragment_to_chatFragment"
+            android:id="@+id/action_professionalProfileFragment_to_chat_logFragment"
             app:destination="@id/chatLogFragment" />
+        <action
+            android:id="@+id/action_professionalProfileFragment_to_chatsFragment"
+            app:destination="@id/chatsFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
@@ -86,5 +89,9 @@
         android:id="@+id/chatsFragment"
         android:name="com.example.handyjobs.fragments.services.bottomNav.ChatsFragment"
         android:label="fragment_chats"
-        tools:layout="@layout/fragment_chats" />
+        tools:layout="@layout/fragment_chats" >
+        <argument
+            android:name="professional"
+            app:argType="com.example.handyjobs.data.ProfessionCategory" />
+    </fragment>
 </navigation>

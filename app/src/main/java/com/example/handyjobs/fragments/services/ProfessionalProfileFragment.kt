@@ -10,7 +10,6 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.handyjobs.R
 import com.example.handyjobs.databinding.FragmentProfProfileBinding
-import dagger.hilt.android.AndroidEntryPoint
 
 class ProfessionalProfileFragment : Fragment(R.layout.fragment_prof_profile) {
     private var _binding: FragmentProfProfileBinding? = null
@@ -32,7 +31,11 @@ class ProfessionalProfileFragment : Fragment(R.layout.fragment_prof_profile) {
         setUpProfessional()
         //contact professional
         binding.contact.setOnClickListener {
-            findNavController().navigate(R.id.action_professionalProfileFragment_to_chatFragment)
+
+            val bundle = Bundle().apply {
+                putParcelable("professional",profArgs.professionalDetails)
+            }
+            findNavController().navigate(R.id.action_professionalProfileFragment_to_chatsFragment,bundle)
         }
     }
 

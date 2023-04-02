@@ -69,6 +69,7 @@ class LoginViewModel @Inject constructor(
     fun checkIfUserIsLoggedIn():Boolean {
         _loggedIn.value = ResultStates.Loading()
         if(firebaseAuth.currentUser != null){
+
             return true
         }
         return false

@@ -1,11 +1,7 @@
 package com.example.handyjobs.fragments.services.bottomNav
 
 import android.Manifest
-import android.content.Context
-import android.location.LocationManager
-import android.os.Build
 import android.os.Bundle
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +15,7 @@ import com.example.handyjobs.R
 import com.example.handyjobs.adapter.PopularCategoriesAdapter
 import com.example.handyjobs.databinding.FragmentHomeBinding
 import com.example.handyjobs.util.CheckPermissions
-import com.example.handyjobs.util.REQUSET_LOCATION_PERMISSION_CODE
+import com.example.handyjobs.util.REQUEST_LOCATION_PERMISSION_CODE
 import com.example.handyjobs.util.ResultStates
 import com.example.handyjobs.viewmodel.HomeViewModel
 import com.google.android.gms.location.*
@@ -146,7 +142,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), OnMapReadyCallback,
         EasyPermissions.requestPermissions(
             this,
             "This App cannot work properly without these permissions",
-            REQUSET_LOCATION_PERMISSION_CODE,
+            REQUEST_LOCATION_PERMISSION_CODE,
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
