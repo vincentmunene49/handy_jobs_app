@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.professionalapp.R
@@ -52,7 +51,7 @@ class HomeFragment: Fragment(R.layout.fragment_home),OnMapReadyCallback,EasyPerm
         //update the location
         //receiveLocationUpdates(requireContext())?.let { viewModel.updateLocation(it) }
         receiveLocationUpdates(requireContext()) { geoPoint ->
-            viewModel.updateLocation(geoPoint)
+            viewModel.updateLocationandStatus(geoPoint)
             val currentLatLng = LatLng(geoPoint.latitude, geoPoint.longitude)
             mMap.addMarker(MarkerOptions().position(currentLatLng).title("Current Location"))
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))

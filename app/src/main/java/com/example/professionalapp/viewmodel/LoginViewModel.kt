@@ -1,7 +1,6 @@
 package com.example.professionalapp.viewmodel
 
 
-import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -82,7 +81,7 @@ class LoginViewModel @Inject constructor(
 
     }
 
-    fun updateLocation(geoPoint: GeoPoint?) {
+    fun updateLocationandStatus(geoPoint: GeoPoint?) {
         val docRef = firestore.collection(PROFESSIONAL_COLLECTION).document(firebaseAuth.uid!!)
         geoPoint.let { geoPoints->
             docRef.update("location", geoPoints,

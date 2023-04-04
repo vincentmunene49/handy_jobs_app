@@ -19,7 +19,7 @@ class ProfileViewModel @Inject constructor(
         firebaseAuth.signOut()
     }
 
-    private fun updatedStatus(){
+    fun updatedStatus(){
         val docRef = firestore.collection(PROFESSIONAL_COLLECTION).document(firebaseAuth.uid!!)
         docRef.update("online",false).addOnSuccessListener {
             Log.d("STATUS", "success")

@@ -6,10 +6,14 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/chatFragment"
-        android:name="com.example.professionalapp.fragments.provideservices.ChatFragment"
+        android:id="@+id/chatLogFragment"
+        android:name="com.example.professionalapp.fragments.provideservices.ChatLogFragment"
         android:label="fragment_chat"
-        tools:layout="@layout/fragment_chat" />
+        tools:layout="@layout/fragment_chat_log" >
+        <action
+            android:id="@+id/action_chatLogFragment_to_chatsFragment"
+            app:destination="@id/chatsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.professionalapp.fragments.provideservices.HomeFragment"
@@ -25,4 +29,16 @@
         android:name="com.example.professionalapp.fragments.provideservices.AddProfessionFragment"
         android:label="fragment_add_profession"
         tools:layout="@layout/fragment_add_profession" />
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="com.example.professionalapp.fragments.provideservices.ChatsFragment"
+        android:label="fragment_chats"
+        tools:layout="@layout/fragment_chats" >
+        <argument
+            android:name="senderData"
+            app:argType="com.example.professionalapp.data.SenderData" />
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
 </navigation>

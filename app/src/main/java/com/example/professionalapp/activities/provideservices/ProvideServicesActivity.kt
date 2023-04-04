@@ -2,6 +2,7 @@ package com.example.professionalapp.activities.provideservices
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
@@ -25,6 +26,15 @@ class ProvideServicesActivity : AppCompatActivity() {
         navController = navHost.navController
 
         binding.bottomNavView.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener{_,destination,_->
+            if(destination.id == R.id.chatsFragment){
+                binding.bottomNavView.visibility = View.GONE
+            }else{
+                binding.bottomNavView.visibility = View.VISIBLE
+            }
+
+        }
 
     }
 
