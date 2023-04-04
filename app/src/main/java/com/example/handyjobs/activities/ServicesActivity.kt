@@ -29,7 +29,7 @@ private lateinit var navController: NavController
         binding.bottomNavView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener{_,destination,_ ->
-            if(destination.id ==R.id.searchFragment || destination.id==R.id.bottomSheetView || destination.id == R.id.professionalProfileFragment){
+            if(destination.id ==R.id.searchFragment || destination.id==R.id.bottomSheetView || destination.id == R.id.professionalProfileFragment || destination.id == R.id.chatsFragment){
                 binding.bottomNavView.visibility = View.GONE
             }else{
                 binding.bottomNavView.visibility = View.VISIBLE

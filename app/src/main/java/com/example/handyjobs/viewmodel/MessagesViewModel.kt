@@ -4,16 +4,17 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.handyjobs.data.Message
+import com.example.handyjobs.data.User
 import com.example.handyjobs.util.MESSAGES_COLLECTION
 import com.example.handyjobs.util.MESSAGES_SUB_COLLECTION
 import com.example.handyjobs.util.ResultStates
+import com.example.handyjobs.util.USER_COLLECTION
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -28,12 +29,16 @@ class MessagesViewModel @Inject constructor(
         MutableStateFlow<ResultStates<List<Message>>>(ResultStates.Unit())
     val messageList = _messageList.asStateFlow()
 
-    fun postMessage(fromId: String?, randomId: String, message: Message) {
-        firestoredb.collection(MESSAGES_COLLECTION).document("${auth.uid!!}$fromId")
+    private var _user = MutableStateFlow<ResultStates<User>>(ResultStates.Unit())
+    val user = _user.asStateFlow()
+
+    fun postMessage(toId: String?, randomId: String, message: Message) {
+        firestoredb.collection(MESSAGES_COLLECTION).document("${auth.uid!!}$toId")
             .collection(MESSAGES_SUB_COLLECTION).document(randomId)
             .set(message)
             .addOnSuccessListener {
                 Log.d("MESSAGE", "Success")
+                retrieveMessages(toId)
             }
             .addOnFailureListener {
                 Log.d("MESSAGE", it.message.toString())
@@ -68,19 +73,20 @@ class MessagesViewModel @Inject constructor(
     }
 
     //function to retrieve all messages for a certain conversation
-    fun retrieveMessages(fromId: String?) {
+    fun retrieveMessages(toId: String?) {
         viewModelScope.launch {
             _messageList.emit(ResultStates.Loading())
         }
         val messageRef =
-            firestoredb.collection(MESSAGES_COLLECTION).document("${auth.uid}$fromId").collection(
+            firestoredb.collection(MESSAGES_COLLECTION).document("${auth.uid}$toId").collection(
                 MESSAGES_SUB_COLLECTION
-            ).whereEqualTo("fromId", fromId).whereEqualTo("toId", auth.uid).orderBy("timestamp",Query.Direction.ASCENDING)
+            ).orderBy("timestamp",Query.Direction.ASCENDING)
         messageRef.get()
             .addOnSuccessListener {
                 val messageList = it.toObjects(Message::class.java)
                 viewModelScope.launch {
                     _messageList.emit(ResultStates.Success(messageList))
+                    Log.d("TOID","$messageList")
                 }
 
         }
@@ -91,6 +97,22 @@ class MessagesViewModel @Inject constructor(
 
             }
 
+    }
+    fun getCurrentUser(){
+        if(auth.currentUser != null){
+            val docRef = firestoredb.collection(USER_COLLECTION).document(auth.currentUser!!.uid)
+            docRef.get().addOnSuccessListener {
+                val user = it.toObject(User::class.java)
+                viewModelScope.launch {
+                    _user.emit(ResultStates.Success(user))
+                }
+            }
+                .addOnFailureListener {
+                    viewModelScope.launch {
+                        _user.emit(ResultStates.Failure(it.message.toString()))
+                    }
+                }
+        }
     }
 
 

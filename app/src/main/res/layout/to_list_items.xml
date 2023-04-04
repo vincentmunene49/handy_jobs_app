@@ -1,36 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_image"
-        android:scaleType="centerCrop"
-        android:layout_width="0dp"
-        app:civ_border_color="#00000000"
-        app:civ_border_width="2dp"
-        app:civ_circle_background_color="#FBFBFB"
-        android:layout_height="0dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintDimensionRatio="1"
-        app:layout_constraintWidth_percent=".1"
-        android:layout_marginTop="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_person_24" />
-    <TextView
-        android:id="@+id/tv_toTextMessage"
-        android:layout_width="wrap_content"
-        android:textSize="15sp"
-        android:maxWidth="300dp"
-        android:padding="8dp"
-        android:layout_marginEnd="10dp"
-        android:text="Hello There vincent how will i help you today. i am the sender "
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_image"
-        app:layout_constraintEnd_toStartOf="@+id/profile_image"
-        app:layout_constraintTop_toTopOf="@+id/profile_image"
-        android:background="@drawable/text_bubble_background"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:scaleType="centerCrop"
+            app:civ_border_color="#00000000"
+            app:civ_border_width="2dp"
+            android:layout_marginBottom="10dp"
+            app:civ_circle_background_color="#FBFBFB"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent=".1"
+            app:srcCompat="@drawable/ic_baseline_person_24" />
+
+        <TextView
+            android:id="@+id/tv_toTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/text_bubble_background"
+            android:maxWidth="300dp"
+            android:padding="8dp"
+            android:text="Hello this is the receiver, can i have a pizza please"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_image"
+            app:layout_constraintStart_toEndOf="@+id/profile_image"
+            app:layout_constraintTop_toTopOf="@+id/profile_image" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
