@@ -11,10 +11,20 @@ object CheckPermissions {
             EasyPermissions.hasPermissions(
                 context,
                 Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+
             )
 
-
+    fun hasNotificationPermission(context: Context):Boolean{
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+           return  EasyPermissions.hasPermissions(
+               context,
+               Manifest.permission.POST_NOTIFICATIONS
+           )
+       }else{
+           return true
+        }
+    }
 
 
 }

@@ -13,6 +13,7 @@ data class ProfessionCategory(
     val description:String,
     val latitude: Double?,
     val longitude: Double?,
+    val token:String?,
     val image:String? = null
         ):Parcelable{
     constructor():this("","","","",null,null,"")

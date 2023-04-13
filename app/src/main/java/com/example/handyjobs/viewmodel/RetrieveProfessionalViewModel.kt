@@ -55,6 +55,7 @@ class RetrieveProfessionalViewModel @Inject constructor(
                             description,
                             geoPoint.latitude,
                             geoPoint.longitude,
+                            professionalData.token,
                             professionalData.image ?: ""
                         )
                     }

@@ -1,21 +1,27 @@
 package com.example.handyjobs.viewmodel
 
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.handyjobs.data.User
+import com.example.handyjobs.services.FirebaseMessagingService
 import com.example.handyjobs.util.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
+    private val firestore: FirebaseFirestore
 ) : ViewModel() {
     //create a channel for emitting values
     private val _validation = Channel<RegisterFieldState>()//does not require initial value
@@ -66,13 +72,27 @@ class LoginViewModel @Inject constructor(
 
     }
 
-    fun checkIfUserIsLoggedIn():Boolean {
+    fun checkIfUserIsLoggedIn(): Boolean {
         _loggedIn.value = ResultStates.Loading()
-        if(firebaseAuth.currentUser != null){
-
+        if (firebaseAuth.currentUser != null) {
             return true
         }
         return false
 
+    }
+
+    //update token
+    fun updateToken(token: String?) {
+        if (firebaseAuth.currentUser != null) {
+            val dbRef =
+                firestore.collection(USER_COLLECTION).document(firebaseAuth.currentUser!!.uid)
+            dbRef.update("token", token).addOnSuccessListener {
+                Log.d("Token","Success")
+            }.addOnFailureListener {
+                Log.d("Token",it.message.toString())
+
+            }
+
+        }
     }
 }

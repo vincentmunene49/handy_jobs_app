@@ -43,7 +43,8 @@ class SignUpFragment:Fragment(R.layout.fragment_sign_up) {
             registerButton.setOnClickListener {
                 val user = User(
                     name.text.toString().trim(),
-                    email.text.toString().trim()
+                    email.text.toString().trim(),
+                    ""
                 )
                 val password = password.text.toString()
                 viewModel.createAccount(user, password)

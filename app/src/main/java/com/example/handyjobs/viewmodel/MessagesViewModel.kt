@@ -28,6 +28,8 @@ class MessagesViewModel @Inject constructor(
     private var _messageList =
         MutableStateFlow<ResultStates<List<Message>>>(ResultStates.Unit())
     val messageList = _messageList.asStateFlow()
+    private val messagesList = mutableListOf<Message>()
+
 
     private var _user = MutableStateFlow<ResultStates<User>>(ResultStates.Unit())
     val user = _user.asStateFlow()
@@ -38,7 +40,7 @@ class MessagesViewModel @Inject constructor(
             .set(message)
             .addOnSuccessListener {
                 Log.d("MESSAGE", "Success")
-                retrieveMessages(toId)
+               // retrieveMessages(toId)
             }
             .addOnFailureListener {
                 Log.d("MESSAGE", it.message.toString())
@@ -73,6 +75,7 @@ class MessagesViewModel @Inject constructor(
     }
 
     //function to retrieve all messages for a certain conversation
+
     fun retrieveMessages(toId: String?) {
         viewModelScope.launch {
             _messageList.emit(ResultStates.Loading())
@@ -81,12 +84,35 @@ class MessagesViewModel @Inject constructor(
             firestoredb.collection(MESSAGES_COLLECTION).document("${auth.uid}$toId").collection(
                 MESSAGES_SUB_COLLECTION
             ).orderBy("timestamp",Query.Direction.ASCENDING)
+
         messageRef.get()
             .addOnSuccessListener {
-                val messageList = it.toObjects(Message::class.java)
-                viewModelScope.launch {
-                    _messageList.emit(ResultStates.Success(messageList))
-                    Log.d("TOID","$messageList")
+                val latestMessage =
+                    it.documents.lastOrNull()?.toObject(Message::class.java)
+                if (latestMessage != null) {
+
+                    messagesList.add(latestMessage)
+                }
+                //val messageList = it.toObjects(Message::class.java)
+                messageRef.addSnapshotListener { newSnapshot, exception ->
+                    if (exception != null) {
+                        Log.e("LATEST", "Error listening for messages", exception)
+                        return@addSnapshotListener
+                    }
+
+                    newSnapshot?.documents?.forEach { documentSnapshot ->
+                        val message = documentSnapshot.toObject(Message::class.java)
+                        if (!messagesList.contains(message) && message!=null) {
+                            messagesList.add(message)
+                        }
+                    }
+                    messagesList.sortBy { message->
+                        message.timestamp
+                    }
+                    viewModelScope.launch {
+                        _messageList.emit(ResultStates.Success(messagesList))
+                    }
+
                 }
 
         }
@@ -96,8 +122,12 @@ class MessagesViewModel @Inject constructor(
                 }
 
             }
+        Log.d("LIST",messagesList.toString())
 
     }
+
+
+
     fun getCurrentUser(){
         if(auth.currentUser != null){
             val docRef = firestoredb.collection(USER_COLLECTION).document(auth.currentUser!!.uid)
