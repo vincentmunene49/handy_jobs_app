@@ -7,7 +7,8 @@ import kotlinx.parcelize.Parcelize
 data class SenderData(
     val name:String,
     val email:String,
+    val token:String?,
     var image:String = ""
 ):Parcelable{
-    constructor():this("","", "")
+    constructor():this("","", "","")
 }

@@ -2,11 +2,13 @@ package com.example.professionalapp.fragments.provideservices
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.example.professionalapp.R
 import com.example.professionalapp.databinding.FragmentHomeBinding
 import com.example.professionalapp.util.CheckPermissions
@@ -19,7 +21,12 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 @AndroidEntryPoint
@@ -43,6 +50,10 @@ class HomeFragment: Fragment(R.layout.fragment_home),OnMapReadyCallback,EasyPerm
         super.onViewCreated(view, savedInstanceState)
         //request permission
         requestPermissions()
+
+
+        //update token
+        updateToken()
 
         //set up map
         mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
@@ -74,6 +85,22 @@ class HomeFragment: Fragment(R.layout.fragment_home),OnMapReadyCallback,EasyPerm
             Manifest.permission.ACCESS_COARSE_LOCATION
         )
 
+    }
+
+    //update token
+    private fun updateToken() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val token = FirebaseMessaging.getInstance().token.await()
+                if (token !=null) {
+                    withContext(Dispatchers.Main) {
+                        viewModel.updateToken(token)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.d("TOKEN", e.message.toString())
+            }
+        }
     }
 
     override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {}

@@ -26,6 +26,8 @@ class MessagesViewModel @Inject constructor(
     private var _messageList =
         MutableStateFlow<Results<List<Message>>>(Results.Unit())
     val messageList = _messageList.asStateFlow()
+    private val messagesList = mutableListOf<Message>()
+
 
     private var _user = MutableStateFlow<Results<User>>(Results.Unit())
     val user = _user.asStateFlow()
@@ -43,7 +45,7 @@ class MessagesViewModel @Inject constructor(
             .set(message)
             .addOnSuccessListener {
                 Log.d("MESSAGE", "Success")
-                retrieveMessages(toId)
+                //retrieveMessages(toId)
             }
             .addOnFailureListener {
                 Log.d("MESSAGE", it.message.toString())
@@ -69,14 +71,37 @@ class MessagesViewModel @Inject constructor(
             firestoredb.collection(MESSAGES_COLLECTION).document("$toId${auth.uid}").collection(
                 MESSAGES_SUB_COLLECTION
             ).orderBy("timestamp", Query.Direction.ASCENDING)
-        messageRef.get()
-            .addOnSuccessListener {
-                val messageList = it.toObjects(Message::class.java)
-                Log.d("VIN", "$messageList")
-                viewModelScope.launch {
-                    _messageList.emit(Results.Success(messageList))
-                }
 
+        messageRef.get()
+            .addOnSuccessListener { querySnapshot ->
+                val latestMessage =
+                    querySnapshot.documents.lastOrNull()?.toObject(Message::class.java)
+                if (latestMessage != null) {
+
+                    messagesList.add(latestMessage)
+                }
+                //val messageList = it.toObjects(Message::class.java)
+                // Log.d("VIN", "$messageList")
+                messageRef.addSnapshotListener { newSnapshot, exception ->
+                    if (exception != null) {
+                        Log.e("LATEST", "Error listening for messages", exception)
+                        return@addSnapshotListener
+                    }
+
+                    newSnapshot?.documents?.forEach { documentSnapshot ->
+                        val message = documentSnapshot.toObject(Message::class.java)
+                        if (!messagesList.contains(message) && message!=null) {
+                            messagesList.add(message)
+                        }
+                    }
+                    messagesList.sortBy {
+                        it.timestamp
+                    }
+                    viewModelScope.launch {
+                        _messageList.emit(Results.Success(messagesList))
+                    }
+
+                }
             }
             .addOnFailureListener {
                 viewModelScope.launch {
@@ -86,6 +111,8 @@ class MessagesViewModel @Inject constructor(
             }
 
     }
+
+
 
     fun getCurrentUser() {
         if (auth.currentUser != null) {

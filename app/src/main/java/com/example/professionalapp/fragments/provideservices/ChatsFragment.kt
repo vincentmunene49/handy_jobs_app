@@ -10,15 +10,18 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.handyjobs.Retrofit.RetrofitInstance
 import com.example.handyjobs.adapter.ChatsAdapter
-import com.example.professionalapp.data.Message
-import com.example.professionalapp.data.TextMessage
+import com.example.professionalapp.data.*
 import com.example.professionalapp.databinding.FragmentChatsBinding
 import com.example.professionalapp.util.Results
 import com.example.professionalapp.viewmodel.MessagesViewModel
+import com.google.gson.Gson
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
@@ -49,7 +52,7 @@ class ChatsFragment : Fragment() {
         //get current user{may be can be done in init of viewmodel, not sure}
         viewModel.getCurrentUser()
         //retrieve all messages
-        viewModel.retrieveMessages(toId)
+
         //retrieve current user info
 
         lifecycleScope.launchWhenStarted {
@@ -68,6 +71,7 @@ class ChatsFragment : Fragment() {
                                 )
                             binding.rvChats.adapter = chatsAdapter
                         }
+                        viewModel.retrieveMessages(toId)
                     }
                     is Results.Loading -> {
 
@@ -91,7 +95,17 @@ class ChatsFragment : Fragment() {
                 TextMessage(text),
                 System.currentTimeMillis() / 1000
             )
+
+            val notification = userArgs.senderData.token?.let { token ->
+                PushNotification(
+                    NotificationData("New Message",text),
+                    token
+                )
+            }
             viewModel.postMessage(toId, UUID.randomUUID().toString(), message)
+            if (notification != null) {
+                sendNotification(notification)
+            }
             binding.edText.text?.clear()
 
         }
@@ -99,24 +113,43 @@ class ChatsFragment : Fragment() {
 //        //get loading states
         lifecycleScope.launchWhenStarted {
             viewModel.messageList.collectLatest {
-                when(it){
-                    is Results.Success ->
-                    {
-                        Log.d("TAG","${it.data}")
+                when (it) {
+                    is Results.Success -> {
+                        Log.d("TAG", "${it.data}")
                         chatsAdapter.differ.submitList(it.data)
-                    }
-                    is Results.Loading ->{
+                        binding.rvChats.scrollToPosition(chatsAdapter.itemCount-1)
+                                          }
+                    is Results.Loading -> {
 
                     }
-                    is Results.Failure ->{
-                        Log.d("TAG","${it.message.toString()}")
+                    is Results.Failure -> {
+                        Log.d("TAG", "${it.message.toString()}")
 
-                    }else -> Unit
+                    }
+                    else -> Unit
                 }
             }
         }
 
 
+    }
+
+    //function to send the notification
+    private fun sendNotification(notification: PushNotification) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = RetrofitInstance.api.postNotification(notification)
+                if (response.isSuccessful) {
+                    Log.d("RETROFIT", Gson().toJson(response))
+                } else {
+                    Log.d("RETROFIT", response.code().toString())
+
+                }
+
+            } catch (e: Exception) {
+                Log.d("RETROFIT", e.message.toString())
+            }
+        }
     }
 
 

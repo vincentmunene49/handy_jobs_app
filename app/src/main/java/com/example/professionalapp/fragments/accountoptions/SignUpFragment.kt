@@ -46,7 +46,8 @@ class SignUpFragment : Fragment(R.layout.fragment_sign_up) {
             binding.apply {
                 val user = User(
                     name.text.toString().trim(),
-                    email.text.toString().trim()
+                    email.text.toString().trim(),
+                    token = ""
                 )
                 val password = password.text.toString()
                 viewModel.createAccount(user, password)

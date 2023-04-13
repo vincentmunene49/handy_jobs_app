@@ -98,4 +98,21 @@ class LoginViewModel @Inject constructor(
 
 
     }
+
+
+
+    //update token
+    fun updateToken(token: String?) {
+        if (firebaseAuth.currentUser != null) {
+            val dbRef =
+                firestore.collection(PROFESSIONAL_COLLECTION).document(firebaseAuth.currentUser!!.uid)
+            dbRef.update("token", token).addOnSuccessListener {
+                Log.d("Token","Success")
+            }.addOnFailureListener {
+                Log.d("Token",it.message.toString())
+
+            }
+
+        }
+    }
 }

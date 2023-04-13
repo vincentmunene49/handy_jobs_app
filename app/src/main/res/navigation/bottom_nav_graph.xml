@@ -5,6 +5,10 @@
     android:id="@+id/bottom_nav_graph"
     app:startDestination="@id/homeFragment">
 
+    <action android:id="@+id/action_global_chatLog_fragment"
+        app:destination="@+id/chatLogFragment"
+        app:launchSingleTop="true"/>
+
     <fragment
         android:id="@+id/chatLogFragment"
         android:name="com.example.professionalapp.fragments.provideservices.ChatLogFragment"
