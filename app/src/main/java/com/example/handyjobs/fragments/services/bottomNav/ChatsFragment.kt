@@ -5,11 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.handyjobs.R
 import com.example.handyjobs.Retrofit.RetrofitInstance
 import com.example.handyjobs.adapter.ChatsAdapter
 import com.example.handyjobs.data.*
@@ -40,6 +43,14 @@ class ChatsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentChatsBinding.inflate(layoutInflater)
+
+//        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner){
+//            val bundle = Bundle().apply {
+//                putParcelable("professional",profArgs.professional)
+//            }
+//            findNavController().navigate(R.id.action_chatsFragment_to_chatLogFragment,bundle)
+//        }
+
         return binding.root
     }
 
@@ -97,10 +108,10 @@ class ChatsFragment : Fragment() {
                 System.currentTimeMillis() / 1000
             )
             val notification = profArgs.professional.token?.let { token ->
-               PushNotification(
-                   NotificationData("New Message",text),
-                   token
-               )
+                PushNotification(
+                    NotificationData("New Message", text),
+                    token
+                )
             }
             viewModel.postMessage(toId, UUID.randomUUID().toString(), message)
             //send push notification
@@ -118,7 +129,7 @@ class ChatsFragment : Fragment() {
                         Log.d("TAG", "${it.data}")
 
                         chatsAdapter.differ.submitList(it.data)
-                        binding.rvChats.scrollToPosition(chatsAdapter.itemCount-1)
+                        binding.rvChats.scrollToPosition(chatsAdapter.itemCount - 1)
 
                     }
                     is ResultStates.Loading -> {
@@ -135,6 +146,7 @@ class ChatsFragment : Fragment() {
 
 
     }
+
 
     //function to send the notification
     private fun sendNotification(notification: PushNotification) =

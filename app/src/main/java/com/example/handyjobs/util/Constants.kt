@@ -13,3 +13,4 @@ const val CHANNEL_NAME = "Handy_jobs"
 const val CHANNEL_ID = "Handy_jobs_channel_id"
 
 const val ACTION_SHOW_CHAT_FRAGMENT = "ACTION_SHOW_CHAT_FRAGMENT "
+const val TABLE_NAME = "professional_table"

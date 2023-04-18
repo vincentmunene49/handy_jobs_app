@@ -17,9 +17,10 @@ import com.example.handyjobs.util.ACTION_SHOW_CHAT_FRAGMENT
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ServicesActivity:AppCompatActivity() {
-    private lateinit var binding:ActivityServicesBinding
-private lateinit var navController: NavController
+class ServicesActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityServicesBinding
+    private lateinit var navController: NavController
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +34,10 @@ private lateinit var navController: NavController
         //setUp bottomnav
         binding.bottomNavView.setupWithNavController(navController)
 
-        navController.addOnDestinationChangedListener{_,destination,_ ->
-            if(destination.id ==R.id.searchFragment || destination.id==R.id.bottomSheetView || destination.id == R.id.professionalProfileFragment || destination.id == R.id.chatsFragment){
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.searchFragment || destination.id == R.id.bottomSheetView || destination.id == R.id.professionalProfileFragment || destination.id == R.id.chatsFragment) {
                 binding.bottomNavView.visibility = View.GONE
-            }else{
+            } else {
                 binding.bottomNavView.visibility = View.VISIBLE
             }
         }
@@ -46,7 +47,8 @@ private lateinit var navController: NavController
 
     private fun navigateToChatLogFragment(intent: Intent?) {
         if (intent?.action == ACTION_SHOW_CHAT_FRAGMENT) {
-            val navHostFragment = supportFragmentManager.findFragmentById(R.id.services_navHost) as NavHostFragment
+            val navHostFragment =
+                supportFragmentManager.findFragmentById(R.id.services_navHost) as NavHostFragment
             navHostFragment.findNavController().navigate(R.id.action_global_chatLog_fragment)
         }
     }

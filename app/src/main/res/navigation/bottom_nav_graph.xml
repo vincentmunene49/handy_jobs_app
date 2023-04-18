@@ -76,11 +76,10 @@
             android:name="professional_details"
             app:argType="com.example.handyjobs.data.ProfessionCategory" />
         <action
-            android:id="@+id/action_professionalProfileFragment_to_chat_logFragment"
-            app:destination="@id/chatLogFragment" />
-        <action
             android:id="@+id/action_professionalProfileFragment_to_chatsFragment"
-            app:destination="@id/chatsFragment" />
+            app:destination="@id/chatsFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
