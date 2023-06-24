@@ -86,8 +86,9 @@ class FirebaseMessagingService : FirebaseMessagingService() {
     //get token
     override fun onNewToken(newToken: String) {
         super.onNewToken(newToken)
-        FirebaseAuth.getInstance().currentUser?.uid.let {
-            FirebaseFirestore.getInstance().collection(USER_COLLECTION).document(it!!).update("token",newToken)
+        FirebaseAuth.getInstance().currentUser?.let {
+            val uid = it.uid
+            FirebaseFirestore.getInstance().collection(USER_COLLECTION).document(uid).update("token",newToken)
 
         }
     }

@@ -70,16 +70,15 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:2.38.1"
 
     //loading button
-    implementation 'br.com.simplepass:loading-button-android:2.2.0'
-
+    implementation "com.github.leandroborgesferreira:loading-button-android:2.3.0"
     //circular image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     //viewpager2 indicator
-    implementation 'io.github.vejei.viewpagerindicator:viewpagerindicator:1.0.0-alpha.1'
+//    implementation 'io.github.vejei.viewpagerindicator:viewpagerindicator:1.0.0-alpha.1'
 
     //stepView
-    implementation 'com.shuhart.stepview:stepview:1.5.1'
+//    implementation 'com.shuhart.stepview:stepview:1.5.1'
     //Navigation component
     def nav_version = "2.5.2"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"

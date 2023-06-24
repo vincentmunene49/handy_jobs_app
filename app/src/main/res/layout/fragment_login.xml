@@ -115,7 +115,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.73" />
 
-    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+    <com.github.leandroborgesferreira.loadingbutton.customViews.CircularProgressButton
         android:id="@+id/login_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
